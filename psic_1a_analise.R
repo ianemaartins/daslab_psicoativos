@@ -96,4 +96,3 @@ ggsave("grafico_mortes_por_ano.png", grafico_mortes_por_ano, width = 10, height 
 ggsave("grafico_escolaridade.png", grafico_escolaridade, width = 10, height = 6, dpi = 300)
 ggsave("grafico_estado_civil.png", grafico_estado_civil, width = 10, height = 6, dpi = 300)
 
-rm(graficos_genero)
