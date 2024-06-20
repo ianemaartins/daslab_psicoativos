@@ -21,9 +21,13 @@ dados2$DTNASC <- ymd(dados2$DTNASC)
 dados2$DTOBITO <- ymd(dados2$DTOBITO)
 dados2$IDADE2 <- floor(interval(start = dados2$DTNASC, end = dados2$DTOBITO) / years(1)) #arrendondado p baixo - anos completos
 
+#criar coluna da data do obito
+dados2$DTOBITO <- ymd(dados2$DTOBITO)
+dados2$ANOOBITO <- year(dados2$DTOBITO)
 
 # filtrar de acordo com o CID F10 a F19
 dados_filtrados <- dados2[grepl("F1", dados2$CAUSABAS, ignore.case = TRUE),]
+
 
 
 #------------- RESUMINDO OS DADOS TOTAIS (DADOS2)--------------------------
@@ -32,27 +36,25 @@ dados_filtrados <- dados2[grepl("F1", dados2$CAUSABAS, ignore.case = TRUE),]
 
 frequencias_genero <- dados2 %>%
   group_by(SEXO) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 frequencias_raca <- dados2 %>%
   group_by(RACACOR) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 frequencias_escolaridade <- dados2 %>%
   group_by(ESC) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 frequencias_estado_civil <- dados2 %>%
   group_by(ESTCIV) %>%
-  summarise(Count = n(), .groups = "drop")
-
-
+  summarise(Quantidade = n(), .groups = "drop")
 
 # Resumo da variavel idade2 - VARIAVEL NUMERICA
 
 frequencias_idade <- dados2 %>%
   group_by(IDADE2) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 # agrupamento por faixas etarias
 
@@ -63,7 +65,14 @@ dados2$FAIXAETA <- cut(dados2$IDADE2,
 
 frequencias_faixa_etaria <- dados2 %>%
   group_by(FAIXAETA) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
+
+#agrupamento pelo ano do obito
+
+frequencias_ano_obito <- dados2 %>%
+  group_by(ANOOBITO) %>%
+  summarise(Quantidade = n(), .groups = "drop")
+
 
 
 #------------- RESUMINDO OS DADOS FILTRADOS PELA CID (DADOS_FILTRADOS)--------------------------
@@ -72,27 +81,25 @@ frequencias_faixa_etaria <- dados2 %>%
 
 frequenciasf_genero <- dados_filtrados %>%
   group_by(SEXO) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 frequenciasf_raca <- dados_filtrados %>%
   group_by(RACACOR) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 frequenciasf_escolaridade <- dados_filtrados %>%
   group_by(ESC) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 frequenciasf_estado_civil <- dados_filtrados %>%
   group_by(ESTCIV) %>%
-  summarise(Count = n(), .groups = "drop")
-
-
+  summarise(Quantidade = n(), .groups = "drop")
 
 # Resumo da variavel idade2 - VARIAVEL NUMERICA
 
 frequenciasf_idade <- dados_filtrados %>%
   group_by(IDADE2) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
 
 # agrupamento por faixas etarias
 
@@ -103,80 +110,154 @@ dados_filtrados$FAIXAETA <- cut(dados_filtrados$IDADE2,
 
 frequenciasf_faixa_etaria <- dados_filtrados %>%
   group_by(FAIXAETA) %>%
-  summarise(Count = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop")
+
+#agrupamento pelo ano do obito
+
+frequenciasf_ano_obito <- dados_filtrados %>%
+  group_by(ANOOBITO) %>%
+  summarise(Quantidade = n(), .groups = "drop")
 
 
+
+#------------CONTRUINDO GRAFICOS DE BARRAS DOS DADOS TOTAIS ----------------------------------------
+
+# montar grafico de barras baseado no GENERO
+
+grafico_genero <- ggplot(frequencias_genero, aes(x = SEXO, y = Quantidade, fill = SEXO)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Gênero das pessoas falecidades no ES de 2018 a 2022",
+       x = "Gênero",
+       y = "Quantidade")
+
+print(grafico_genero)
+
+# grafico de barras baseado na ESCOLARIDADE
+
+grafico_escolaridade <- ggplot(frequencias_escolaridade, aes(x = ESC, y = Quantidade, fill = ESC)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Escolaridade das pessoas falecidades no ES de 2018 a 2022",
+       x = "Escolaridade",
+       y = "Quantidade")
+
+print(grafico_escolaridade)
+
+# grafico de barras baseado no ESTADO CIVIL
+
+grafico_estado_civil<- ggplot(frequencias_estado_civil, aes(x = ESTCIV, y = Quantidade, fill = ESTCIV)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Estado Civil das pessoas falecidades no ES de 2018 a 2022",
+       x = "Estado Civil",
+       y = "Quantidade")
+
+print(grafico_estado_civil)
+
+# grafico de barras baseado na COR/RACA
+
+grafico_raca <- ggplot(frequencias_raca, aes(x = RACACOR, y = Quantidade, fill = RACACOR)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Raça das pessoas falecidades no ES de 2018 a 2022",
+       x = "Raça",
+       y = "Quantidade")
+
+print(grafico_raca)
+
+# grafico de barras baseado na IDADE
+
+grafico_idade <- ggplot(frequencias_faixa_etaria, aes(x = FAIXAETA, y = Quantidade, fill = FAIXAETA)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Faixa Etária das pessoas falecidades no ES de 2018 a 2022",
+       x = "Raça",
+       y = "Quantidade")
+
+print(grafico_idade)
+
+# grafico de barras baseado no NUMERO DE MORTES POR ANO
+
+grafico_mortes_por_ano <- ggplot(frequencias_ano_obito, aes(x = ANOOBITO, y = Quantidade, fill = ANOOBITO)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Mortes no ES de 2018 a 2022",
+       x = "Raça",
+       y = "Quantidade")
+
+print(grafico_mortes_por_ano)
 
 
 
 #------------CONTRUINDO GRAFICOS DE BARRAS DOS DADOS FILTRADOS ----------------------------------------
 
 # montar grafico de barras baseado no GENERO
-graficof_genero <- ggplot(resumo_dados, aes(x = SEXO, y = Quantidade, fill = SEXO)) +
+
+graficof_genero <- ggplot(frequenciasf_genero, aes(x = SEXO, y = Quantidade, fill = SEXO)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Quantidade de mortes por uso de substância psicoativa - Gênero",
-       x = "Sexo",
+  labs(title = "Gênero das pessoas falecidades por psicoativos no ES de 2018 a 2022",
+       x = "Gênero",
        y = "Quantidade")
 
 print(graficof_genero)
 
 # grafico de barras baseado na ESCOLARIDADE
-resumo_dados$ESC <- factor(resumo_dados$ESC, 
-      levels = c("Nenhuma", "1 a 3 anos", "4 a 7 anos", "8 a 11 anos", "12 anos ou mais", NA)) #ordem das barras
 
-graficof_escolaridade <- ggplot(resumo_dados, aes(x = ESC, y = Quantidade, fill = ESC)) +
+graficof_escolaridade <- ggplot(frequenciasf_escolaridade, aes(x = ESC, y = Quantidade, fill = ESC)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Quantidade de mortes por uso de substância psicoativa - Escolaridade",
+  labs(title = "Escolaridade das pessoas falecidades por psicoativos no ES de 2018 a 2022",
        x = "Escolaridade",
        y = "Quantidade")
 
+print(graficof_escolaridade)
+
 # grafico de barras baseado no ESTADO CIVIL
-graficof_estado_civil<- ggplot(resumo_dados, aes(x = ESTCIV, y = Quantidade, fill = ESTCIV)) +
+
+graficof_estado_civil<- ggplot(frequenciasf_estado_civil, aes(x = ESTCIV, y = Quantidade, fill = ESTCIV)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Quantidade de mortes por uso de substância psicoativa - Estado Civil",
+  labs(title = "Estado Civil das pessoas falecidades por psicoativos no ES de 2018 a 2022",
        x = "Estado Civil",
        y = "Quantidade")
 
+print(graficof_estado_civil)
+
 # grafico de barras baseado na COR/RACA
-graficof_raca <- ggplot(resumo_dados, aes(x = RACACOR, y = Quantidade, fill = RACACOR)) +
+
+graficof_raca <- ggplot(frequenciasf_raca, aes(x = RACACOR, y = Quantidade, fill = RACACOR)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Quantidade de mortes por uso de substância psicoativa - Cor / Raça",
+  labs(title = "Raça das pessoas falecidades por psicoativos no ES de 2018 a 2022",
        x = "Raça",
        y = "Quantidade")
 
-
-# grafico de barras baseado no NUMERO DE MORTES POR ANO
-dados_filtrados$ANO_OBITO <- format(as.Date(dados_filtrados$DTOBITO, "%Y-%m-%d"), "%Y")#extraindo ano da data
-
-graficof_mortes_por_ano <- ggplot(dados_filtrados, aes(x = ANO_OBITO, y = ..count.., fill = ANO_OBITO)) +
-  geom_bar() +
-  theme_minimal() +
-  labs(title = "Quantidade de mortes por substância psicoativa por ano",
-       x = "Ano",
-       y = "Quantidade")
+print(graficof_raca)
 
 # grafico de barras baseado na IDADE
 
-dados_filtrados$DTNASC <- as.Date(dados_filtrados$DTNASC, format = "%Y-%m-%d") #converter o formato da coluna
-dados_filtrados$DTOBITO <- as.Date(dados_filtrados$DTOBITO, format = "%Y-%m-%d")
-
-dados_filtrados$IDADE_CALCULADA <- interval(
-  start = dados_filtrados$DTNASC, end = dados_filtrados$DTOBITO) / years(1) #calcular idade no momento do falecimento
-
-dados_filtrados$IDADE_GRUPO <- cut(
-  dados_filtrados$IDADE_CALCULADA, breaks = nclass.Sturges(
-    dados_filtrados$IDADE_CALCULADA), right = FALSE) #calcular as classes - regra de Sturges
-
-graficof_idade <- ggplot(dados_filtrados, aes(x = IDADE_GRUPO, y = ..count.., fill = IDADE_GRUPO)) +
-  geom_bar() +
+graficof_idade <- ggplot(frequenciasf_faixa_etaria, aes(x = FAIXAETA, y = Quantidade, fill = FAIXAETA)) +
+  geom_bar(stat = "identity") +
   theme_minimal() +
-  labs(title = "Distribuição de Mortes por substância psicoativa - Idade",
-       x = "Grupo Etário",
+  labs(title = "Faixa Etária das pessoas falecidades por psicoativos no ES de 2018 a 2022",
+       x = "Raça",
        y = "Quantidade")
+
+print(graficof_idade)
+
+# grafico de barras baseado no NUMERO DE MORTES POR ANO
+
+graficof_mortes_por_ano <- ggplot(frequenciasf_ano_obito, aes(x = ANOOBITO, y = Quantidade, fill = ANOOBITO)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Mortes por psicoativos no ES de 2018 a 2022",
+       x = "Raça",
+       y = "Quantidade")
+
+print(graficof_mortes_por_ano)
+
 
 
 
