@@ -131,7 +131,7 @@ grafico_genero <- ggplot(frequencias_genero, aes(x = SEXO, y = Quantidade, fill 
        x = "Gênero",
        y = "Quantidade")
 
-print(grafico_genero)
+#print(grafico_genero)
 
 # grafico de barras baseado na ESCOLARIDADE
 
@@ -142,7 +142,7 @@ grafico_escolaridade <- ggplot(frequencias_escolaridade, aes(x = ESC, y = Quanti
        x = "Escolaridade",
        y = "Quantidade")
 
-print(grafico_escolaridade)
+#print(grafico_escolaridade)
 
 # grafico de barras baseado no ESTADO CIVIL
 
@@ -153,7 +153,7 @@ grafico_estado_civil<- ggplot(frequencias_estado_civil, aes(x = ESTCIV, y = Quan
        x = "Estado Civil",
        y = "Quantidade")
 
-print(grafico_estado_civil)
+#print(grafico_estado_civil)
 
 # grafico de barras baseado na COR/RACA
 
@@ -164,7 +164,7 @@ grafico_raca <- ggplot(frequencias_raca, aes(x = RACACOR, y = Quantidade, fill =
        x = "Raça",
        y = "Quantidade")
 
-print(grafico_raca)
+#print(grafico_raca)
 
 # grafico de barras baseado na IDADE
 
@@ -175,7 +175,7 @@ grafico_idade <- ggplot(frequencias_faixa_etaria, aes(x = FAIXAETA, y = Quantida
        x = "Raça",
        y = "Quantidade")
 
-print(grafico_idade)
+#print(grafico_idade)
 
 # grafico de barras baseado no NUMERO DE MORTES POR ANO
 
@@ -186,7 +186,7 @@ grafico_mortes_por_ano <- ggplot(frequencias_ano_obito, aes(x = ANOOBITO, y = Qu
        x = "Raça",
        y = "Quantidade")
 
-print(grafico_mortes_por_ano)
+#print(grafico_mortes_por_ano)
 
 
 
@@ -201,7 +201,7 @@ graficof_genero <- ggplot(frequenciasf_genero, aes(x = SEXO, y = Quantidade, fil
        x = "Gênero",
        y = "Quantidade")
 
-print(graficof_genero)
+#print(graficof_genero)
 
 # grafico de barras baseado na ESCOLARIDADE
 
@@ -212,7 +212,7 @@ graficof_escolaridade <- ggplot(frequenciasf_escolaridade, aes(x = ESC, y = Quan
        x = "Escolaridade",
        y = "Quantidade")
 
-print(graficof_escolaridade)
+#print(graficof_escolaridade)
 
 # grafico de barras baseado no ESTADO CIVIL
 
@@ -223,7 +223,7 @@ graficof_estado_civil<- ggplot(frequenciasf_estado_civil, aes(x = ESTCIV, y = Qu
        x = "Estado Civil",
        y = "Quantidade")
 
-print(graficof_estado_civil)
+#print(graficof_estado_civil)
 
 # grafico de barras baseado na COR/RACA
 
@@ -234,7 +234,7 @@ graficof_raca <- ggplot(frequenciasf_raca, aes(x = RACACOR, y = Quantidade, fill
        x = "Raça",
        y = "Quantidade")
 
-print(graficof_raca)
+#print(graficof_raca)
 
 # grafico de barras baseado na IDADE
 
@@ -245,7 +245,7 @@ graficof_idade <- ggplot(frequenciasf_faixa_etaria, aes(x = FAIXAETA, y = Quanti
        x = "Raça",
        y = "Quantidade")
 
-print(graficof_idade)
+#print(graficof_idade)
 
 # grafico de barras baseado no NUMERO DE MORTES POR ANO
 
@@ -256,8 +256,25 @@ graficof_mortes_por_ano <- ggplot(frequenciasf_ano_obito, aes(x = ANOOBITO, y = 
        x = "Raça",
        y = "Quantidade")
 
-print(graficof_mortes_por_ano)
+#print(graficof_mortes_por_ano)
 
+
+
+
+#------------------- SALVANDO GRAFICOS ---------------------------
+
+ggsave("graficof_genero.png", graficof_genero, width = 10, height = 6, dpi = 300)
+ggsave("graficof_idade.png", graficof_idade, width = 10, height = 6, dpi = 300)
+ggsave("graficof_raca.png", graficof_raca, width = 10, height = 6, dpi = 300)
+ggsave("graficof_mortes_por_ano.png", graficof_mortes_por_ano, width = 10, height = 6, dpi = 300)
+ggsave("graficof_escolaridade.png", graficof_escolaridade, width = 10, height = 6, dpi = 300)
+ggsave("graficof_estado_civil.png", graficof_estado_civil, width = 10, height = 6, dpi = 300)
+ggsave("grafico_genero.png", graficof_genero, width = 10, height = 6, dpi = 300)
+ggsave("grafico_idade.png", graficof_idade, width = 10, height = 6, dpi = 300)
+ggsave("grafico_raca.png", graficof_raca, width = 10, height = 6, dpi = 300)
+ggsave("grafico_mortes_por_ano.png", graficof_mortes_por_ano, width = 10, height = 6, dpi = 300)
+ggsave("grafico_escolaridade.png", graficof_escolaridade, width = 10, height = 6, dpi = 300)
+ggsave("grafico_estado_civil.png", graficof_estado_civil, width = 10, height = 6, dpi = 300)
 
 
 
