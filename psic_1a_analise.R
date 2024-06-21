@@ -44,6 +44,8 @@ frequencias_raca <- dados2 %>%
   summarise(Quantidade = n(), .groups = "drop") %>%
   mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
+dados2$ESC <- factor(dados2$ESC, levels = c(
+  "Nenhuma", "1 a 3 anos", "4 a 7 anos", "8 a 11 anos", "12 anos ou mais", NA)) #ordenar as variaveis
 frequencias_escolaridade <- dados2 %>%
   group_by(ESC) %>%
   summarise(Quantidade = n(), .groups = "drop") %>%
@@ -96,6 +98,8 @@ frequenciasf_raca <- dados_filtrados %>%
   summarise(Quantidade = n(), .groups = "drop") %>%
   mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
+dados_filtrados$ESC <- factor(dados_filtrados$ESC, levels = c(
+  "Nenhuma", "1 a 3 anos", "4 a 7 anos", "8 a 11 anos", "12 anos ou mais", NA)) #ordenar as variaveis
 frequenciasf_escolaridade <- dados_filtrados %>%
   group_by(ESC) %>%
   summarise(Quantidade = n(), .groups = "drop") %>%
@@ -156,7 +160,7 @@ grafico_escolaridade <- ggplot(frequencias_escolaridade, aes(x = ESC, y = Quanti
        x = "Escolaridade",
        y = "Quantidade")
 
-#print(grafico_escolaridade)
+print(grafico_escolaridade)
 
 # grafico de barras baseado no ESTADO CIVIL
 
@@ -226,7 +230,7 @@ graficof_escolaridade <- ggplot(frequenciasf_escolaridade, aes(x = ESC, y = Quan
        x = "Escolaridade",
        y = "Quantidade")
 
-#print(graficof_escolaridade)
+print(graficof_escolaridade)
 
 # grafico de barras baseado no ESTADO CIVIL
 
