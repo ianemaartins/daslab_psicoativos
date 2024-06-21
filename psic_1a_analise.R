@@ -65,9 +65,12 @@ frequencias_idade <- dados2 %>%
 
 # agrupamento por faixas etarias
 
+cores_faixa_etaria <- c(
+  "0-12 anos" = "black", "13-17 anos" = "orange", "18-30 anos" = "green", "31-60 anos" = "blue", "60+ anos" = "purple", "NA" = "grey")
+
 dados2$FAIXAETA <- cut(dados2$IDADE2,
   breaks = c(-Inf, 12, 17, 30, 60, Inf),
-  labels = c("0,12 anos", "13-17 anos", "18-30 anos", "31-60 anos", "60+ anos"),
+  labels = c("0-12 anos", "13-17 anos", "18-30 anos", "31-60 anos", "60+ anos"),
   right = TRUE) #inclusivo a direita (x-y]
 
 frequencias_faixa_etaria <- dados2 %>%
@@ -119,9 +122,12 @@ frequenciasf_idade <- dados_filtrados %>%
 
 # agrupamento por faixas etarias
 
+cores_faixa_etaria <- c(
+  "0-12 anos" = "black", "13-17 anos" = "orange", "18-30 anos" = "green", "31-60 anos" = "blue", "60+ anos" = "purple", "NA" = "grey")
+
 dados_filtrados$FAIXAETA <- cut(dados_filtrados$IDADE2,
   breaks = c(-Inf, 12, 17, 30, 60, Inf),
-  labels = c("0,12 anos", "13-17 anos", "18-30 anos", "31-60 anos", "60+ anos"),
+  labels = c("0-12 anos", "13-17 anos", "18-30 anos", "31-60 anos", "60+ anos"),
   right = TRUE) #inclusivo a direita (x-y]
 
 frequenciasf_faixa_etaria <- dados_filtrados %>%
@@ -188,12 +194,12 @@ grafico_raca <- ggplot(frequencias_raca, aes(x = RACACOR, y = Quantidade, fill =
 
 grafico_idade <- ggplot(frequencias_faixa_etaria, aes(x = FAIXAETA, y = Quantidade, fill = FAIXAETA)) +
   geom_bar(stat = "identity") +
-  theme_minimal() +
+  scale_fill_manual(values = cores_faixa_etaria) +
   labs(title = "Faixa Etária das pessoas falecidades no ES de 2018 a 2022",
        x = "Raça",
        y = "Quantidade")
 
-#print(grafico_idade)
+print(grafico_idade)
 
 # grafico de barras baseado no NUMERO DE MORTES POR ANO
 
@@ -258,12 +264,12 @@ graficof_raca <- ggplot(frequenciasf_raca, aes(x = RACACOR, y = Quantidade, fill
 
 graficof_idade <- ggplot(frequenciasf_faixa_etaria, aes(x = FAIXAETA, y = Quantidade, fill = FAIXAETA)) +
   geom_bar(stat = "identity") +
-  theme_minimal() +
+  scale_fill_manual(values = cores_faixa_etaria) +
   labs(title = "Faixa Etária das pessoas falecidades por psicoativos no ES de 2018 a 2022",
        x = "Raça",
        y = "Quantidade")
 
-#print(graficof_idade)
+print(graficof_idade)
 
 # grafico de barras baseado no NUMERO DE MORTES POR ANO
 
