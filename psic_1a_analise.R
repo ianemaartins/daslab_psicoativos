@@ -21,7 +21,7 @@ dados2$DTNASC <- ymd(dados2$DTNASC)
 dados2$DTOBITO <- ymd(dados2$DTOBITO)
 dados2$IDADE2 <- floor(interval(start = dados2$DTNASC, end = dados2$DTOBITO) / years(1)) #arrendondado p baixo - anos completos
 
-#criar coluna da data do obito
+#criar coluna do ano em que o obito ocorreu
 dados2$DTOBITO <- ymd(dados2$DTOBITO)
 dados2$ANOOBITO <- year(dados2$DTOBITO)
 
@@ -36,25 +36,30 @@ dados_filtrados <- dados2[grepl("F1", dados2$CAUSABAS, ignore.case = TRUE),]
 
 frequencias_genero <- dados2 %>%
   group_by(SEXO) %>%
-  summarise(Quantidade = n(), .groups = "drop")
-
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
+  
 frequencias_raca <- dados2 %>%
   group_by(RACACOR) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 frequencias_escolaridade <- dados2 %>%
   group_by(ESC) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 frequencias_estado_civil <- dados2 %>%
   group_by(ESTCIV) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 # Resumo da variavel idade2 - VARIAVEL NUMERICA
 
 frequencias_idade <- dados2 %>%
   group_by(IDADE2) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 # agrupamento por faixas etarias
 
@@ -65,13 +70,15 @@ dados2$FAIXAETA <- cut(dados2$IDADE2,
 
 frequencias_faixa_etaria <- dados2 %>%
   group_by(FAIXAETA) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 #agrupamento pelo ano do obito
 
 frequencias_ano_obito <- dados2 %>%
   group_by(ANOOBITO) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 
 
@@ -81,25 +88,30 @@ frequencias_ano_obito <- dados2 %>%
 
 frequenciasf_genero <- dados_filtrados %>%
   group_by(SEXO) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 frequenciasf_raca <- dados_filtrados %>%
   group_by(RACACOR) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 frequenciasf_escolaridade <- dados_filtrados %>%
   group_by(ESC) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 frequenciasf_estado_civil <- dados_filtrados %>%
   group_by(ESTCIV) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 # Resumo da variavel idade2 - VARIAVEL NUMERICA
 
 frequenciasf_idade <- dados_filtrados %>%
   group_by(IDADE2) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 # agrupamento por faixas etarias
 
@@ -110,13 +122,15 @@ dados_filtrados$FAIXAETA <- cut(dados_filtrados$IDADE2,
 
 frequenciasf_faixa_etaria <- dados_filtrados %>%
   group_by(FAIXAETA) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 #agrupamento pelo ano do obito
 
 frequenciasf_ano_obito <- dados_filtrados %>%
   group_by(ANOOBITO) %>%
-  summarise(Quantidade = n(), .groups = "drop")
+  summarise(Quantidade = n(), .groups = "drop") %>%
+  mutate(Porcentagem = Quantidade / sum(Quantidade) * 100)
 
 
 
@@ -269,12 +283,12 @@ ggsave("graficof_raca.png", graficof_raca, width = 10, height = 6, dpi = 300)
 ggsave("graficof_mortes_por_ano.png", graficof_mortes_por_ano, width = 10, height = 6, dpi = 300)
 ggsave("graficof_escolaridade.png", graficof_escolaridade, width = 10, height = 6, dpi = 300)
 ggsave("graficof_estado_civil.png", graficof_estado_civil, width = 10, height = 6, dpi = 300)
-ggsave("grafico_genero.png", graficof_genero, width = 10, height = 6, dpi = 300)
-ggsave("grafico_idade.png", graficof_idade, width = 10, height = 6, dpi = 300)
-ggsave("grafico_raca.png", graficof_raca, width = 10, height = 6, dpi = 300)
-ggsave("grafico_mortes_por_ano.png", graficof_mortes_por_ano, width = 10, height = 6, dpi = 300)
-ggsave("grafico_escolaridade.png", graficof_escolaridade, width = 10, height = 6, dpi = 300)
-ggsave("grafico_estado_civil.png", graficof_estado_civil, width = 10, height = 6, dpi = 300)
+ggsave("grafico_genero.png", grafico_genero, width = 10, height = 6, dpi = 300)
+ggsave("grafico_idade.png", grafico_idade, width = 10, height = 6, dpi = 300)
+ggsave("grafico_raca.png", grafico_raca, width = 10, height = 6, dpi = 300)
+ggsave("grafico_mortes_por_ano.png", grafico_mortes_por_ano, width = 10, height = 6, dpi = 300)
+ggsave("grafico_escolaridade.png", grafico_escolaridade, width = 10, height = 6, dpi = 300)
+ggsave("grafico_estado_civil.png", grafico_estado_civil, width = 10, height = 6, dpi = 300)
 
 
 
