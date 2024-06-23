@@ -314,23 +314,11 @@ ggsave("grafico_escolaridade.png", grafico_escolaridade, width = 10, height = 6,
 ggsave("grafico_estado_civil.png", grafico_estado_civil, width = 10, height = 6, dpi = 300)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #--------------RELAÇÃO ENTRE OS DADOS TOTAIS E OS DADOS POR PSICOATIVOS --------------
 
 #juntando os dados totais x e os dados filtrados segundo as CIDs y de cada variavel
+
+
 
 # MORTES POR ANO
 uniao_ano_obito <- merge(frequencias_ano_obito, frequenciasf_ano_obito, by = "ANOOBITO") #juntando os dados
@@ -338,25 +326,34 @@ uniao_ano_obito <- merge(frequencias_ano_obito, frequenciasf_ano_obito, by = "AN
 uniao_ano_obito <- uniao_ano_obito %>% #mortes por psicoativos a cada 1000 mortes totais
   mutate(Mortes_por_1000 = (Quantidade.y / Quantidade.x) * 1000)
 
+names(uniao_ano_obito) <- c("ano_do_obito", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos") #mudar nome das colunas
+
 # GENERO
 uniao_genero <- merge(frequencias_genero, frequenciasf_genero, by = "SEXO") #juntando os dados
 
 uniao_genero <- uniao_genero %>% #mortes por psicoativos a cada 1000 mortes totais
   mutate(Mortes_por_1000 = (Quantidade.y / Quantidade.x) * 1000)
 
+names(uniao_genero) <- c("genero", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos")
+
 #ESCOLARIDADE
 uniao_escolaridade <- merge(frequencias_escolaridade, frequenciasf_escolaridade, by = "ESC") #juntando os dados
+names(uniao_escolaridade) <- c("escolaridade", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos")
 
 #ESTADO CIVIL
 uniao_estado_civil <- merge(frequencias_estado_civil, frequenciasf_estado_civil, by = "ESTCIV") #juntando os dados
+names(uniao_estado_civil) <- c("estado_civil", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos")
 
 #RACA
 uniao_raca <- merge(frequencias_raca, frequenciasf_raca, by = "RACACOR") #juntando os dados
+names(uniao_raca) <- c("raca_cor", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos")
 
 #FAIXA ETARIA
 uniao_faixa_etaria <- merge(frequencias_faixa_etaria, frequenciasf_faixa_etaria, by = "FAIXAETA") #juntando os dados
+names(uniao_faixa_etaria) <- c("faixa_etaria", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos")
 
 #IDADE
+
 # Calcular a média
 media_idade_total <- mean(dados2$IDADE2, na.rm = TRUE)
 media_idade_psicoativos <- mean(dados_filtrados$IDADE2, na.rm = TRUE)
@@ -367,11 +364,6 @@ mediana_idade_psicoativos <- median(dados_filtrados$IDADE2, na.rm = TRUE)
 
 #boxplot
 
-ggplot(data = dados2, aes(y = IDADE2)) + 
-  geom_boxplot() +
-  labs(title = "Boxplot de Idades de Mortes por Uso de Psicoativos",
-       y = "Idade",
-       x = "") +
-
-
+boxplot(dados2$IDADE2, main="Boxplot da Coluna", ylab="Valores")
+boxplot(dados_filtrados$IDADE2, main="Boxplot da Coluna", ylab="Valores")
 
