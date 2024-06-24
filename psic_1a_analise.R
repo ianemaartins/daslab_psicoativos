@@ -324,7 +324,7 @@ uniao_ano_obito <- merge(frequencias_ano_obito, frequenciasf_ano_obito, by = "AN
 uniao_ano_obito <- uniao_ano_obito %>% #mortes por psicoativos a cada 1000 mortes totais
   mutate(Mortes_por_1000 = (Quantidade.y / Quantidade.x) * 1000)
 
-names(uniao_ano_obito) <- c("Ano", "Quant.total", "%.total", "Quant.psicoativos", "%.psicoativos", "obi.psic/1000.tot") #mudar nome das colunas
+names(uniao_ano_obito) <- c("Ano", "Mortes Totais", "% MT", "Mortes por Psicoativos", "% MP", "MP/1000 MT") #mudar nome das colunas
 
 # GENERO
 uniao_genero <- merge(frequencias_genero, frequenciasf_genero, by = "SEXO") #juntando os dados
@@ -332,7 +332,7 @@ uniao_genero <- merge(frequencias_genero, frequenciasf_genero, by = "SEXO") #jun
 uniao_genero <- uniao_genero %>% #mortes por psicoativos a cada 1000 mortes totais
   mutate(Mortes_por_1000 = (Quantidade.y / Quantidade.x) * 1000)
 
-names(uniao_genero) <- c("Genero", "Quant.total", "%.total", "Quant.psicoat", "%.psicoat", "obi.psic/1000.tot")
+names(uniao_genero) <- c("Genero", "Mortes Totais", "% MT", "Mortes por Psicoativos", "% MP", "MP/1000 MT")
 
 #ESCOLARIDADE
 uniao_escolaridade <- merge(frequencias_escolaridade, frequenciasf_escolaridade, by = "ESC") #juntando os dados
