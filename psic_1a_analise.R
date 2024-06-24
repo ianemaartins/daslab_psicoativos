@@ -318,8 +318,6 @@ ggsave("grafico_estado_civil.png", grafico_estado_civil, width = 10, height = 6,
 
 #juntando os dados totais x e os dados filtrados segundo as CIDs y de cada variavel
 
-
-
 # MORTES POR ANO
 uniao_ano_obito <- merge(frequencias_ano_obito, frequenciasf_ano_obito, by = "ANOOBITO") #juntando os dados
 
@@ -363,7 +361,12 @@ mediana_idade_total <- median(dados2$IDADE2, na.rm = TRUE)
 mediana_idade_psicoativos <- median(dados_filtrados$IDADE2, na.rm = TRUE)
 
 #boxplot
-
-boxplot(dados2$IDADE2, main="Boxplot da Coluna", ylab="Valores")
-boxplot(dados_filtrados$IDADE2, main="Boxplot da Coluna", ylab="Valores")
+boxplot_total <- boxplot(dados2$IDADE2, 
+                         main="Idade de falecimento total", 
+                         ylab="Valores",
+                         col = "#418e8e")
+boxplot_psic <- boxplot(dados_filtrados$IDADE2, 
+                        main = "Idade de falecimento por psicoativos", 
+                        ylab = "Valores", 
+                        col = "#eb613b")
 

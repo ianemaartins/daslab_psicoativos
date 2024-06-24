@@ -50,12 +50,21 @@ print(uniao_genero)
 
 ### 3. Idade
 
+Para facilitar a análise dos dados relativos à idade dos falecidos, optou-se por utilizar faixas etárias, dividindo os indivíduos em cinco grupos:
 
+crianças (inf-12];     
+adolescentes (13-17];   
+jovens adultos (18-30];   
+adultos (31-60];   
+idosos (61-inf].   
+
+Ao observar os gráficos, nota-se uma discrepância significativa nas idades predominantes entre os falecidos. Nos óbitos totais, o grupo dos idosos (mais de 60 anos) apresenta o maior número de óbitos. Em contraste, no grupo de óbitos por psicoativos, é o grupo dos adultos (31-60 anos) que registra o maior número de mortes.
 
 ```{r fig.width=12, fig.height=6, echo=FALSE}
 grid.arrange(grafico_idade, graficof_idade, ncol=2)
 ```
 
+Fazendo o calculo de média e mediana, temos que a média de idade de falecimento do grupo de óbitos totais foi de 65,5806 e a mediana foi 69. Já a média de idade de falecimento do grupo de óbito por psicoativos foi de 55,4799 e a mediana foi 55.
 
 
 ### 4. Raça, Escolaridade e Estado Civil
@@ -71,3 +80,7 @@ grid.arrange(grafico_escolaridade, graficof_escolaridade, ncol=2)
 ```{r fig.width=12, fig.height=6, echo=FALSE}
 grid.arrange(grafico_estado_civil, graficof_estado_civil, ncol=2)
 ```
+
+### 5. Considerações Finais
+
+a. Os dados NA não foram removidos devido a sua grande quantidade de ocorrência em algumas variáveis. Entendeu-se necessário conversar com toda a equipe para ver qual seria a melhor maneira de trabalhar com eles. 
