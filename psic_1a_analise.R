@@ -370,3 +370,5 @@ boxplot_psic <- boxplot(dados_filtrados$IDADE2,
                         ylab = "Valores", 
                         col = "#eb613b")
 
+
+
