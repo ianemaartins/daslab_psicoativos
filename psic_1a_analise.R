@@ -212,7 +212,7 @@ grafico_idade <- ggplot(frequencias_faixa_etaria, aes(x = FAIXAETA, y = Quantida
   geom_bar(stat = "identity") +
   scale_fill_manual(values = cores_faixa_etaria) +
   labs(title = "Faixa Etária das pessoas falecidades no ES de 2018 a 2022",
-       x = "Raça",
+       x = "Faixa Etária",
        y = "Quantidade")
 
 print(grafico_idade)
@@ -223,8 +223,8 @@ grafico_mortes_por_ano <- ggplot(frequencias_ano_obito, aes(x = ANOOBITO, y = Qu
   geom_bar(stat = "identity") +
   theme_minimal() +
   labs(title = "Mortes no ES de 2018 a 2022",
-       x = "Raça",
-       y = "Quantidade")
+       x = "Ano",
+       y = "Óbitos")
 
 #print(grafico_mortes_por_ano)
 
@@ -281,7 +281,7 @@ graficof_idade <- ggplot(frequenciasf_faixa_etaria, aes(x = FAIXAETA, y = Quanti
   geom_bar(stat = "identity") +
   scale_fill_manual(values = cores_faixa_etaria) +
   labs(title = "Faixa Etária das pessoas falecidades por psicoativos no ES de 2018 a 2022",
-       x = "Raça",
+       x = "Faixa Etária",
        y = "Quantidade")
 
 print(graficof_idade)
@@ -292,8 +292,8 @@ graficof_mortes_por_ano <- ggplot(frequenciasf_ano_obito, aes(x = ANOOBITO, y = 
   geom_bar(stat = "identity") +
   theme_minimal() +
   labs(title = "Mortes por psicoativos no ES de 2018 a 2022",
-       x = "Raça",
-       y = "Quantidade")
+       x = "Ano",
+       y = "Óbitos")
 
 #print(graficof_mortes_por_ano)
 
@@ -326,7 +326,7 @@ uniao_ano_obito <- merge(frequencias_ano_obito, frequenciasf_ano_obito, by = "AN
 uniao_ano_obito <- uniao_ano_obito %>% #mortes por psicoativos a cada 1000 mortes totais
   mutate(Mortes_por_1000 = (Quantidade.y / Quantidade.x) * 1000)
 
-names(uniao_ano_obito) <- c("ano_do_obito", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos") #mudar nome das colunas
+names(uniao_ano_obito) <- c("Ano", "Quant.total", "%.total", "Quant.psicoativos", "%.psicoativos", "obi.psic/1000.tot") #mudar nome das colunas
 
 # GENERO
 uniao_genero <- merge(frequencias_genero, frequenciasf_genero, by = "SEXO") #juntando os dados
@@ -334,7 +334,7 @@ uniao_genero <- merge(frequencias_genero, frequenciasf_genero, by = "SEXO") #jun
 uniao_genero <- uniao_genero %>% #mortes por psicoativos a cada 1000 mortes totais
   mutate(Mortes_por_1000 = (Quantidade.y / Quantidade.x) * 1000)
 
-names(uniao_genero) <- c("genero", "quantidade_total", "porcentagem_total", "quantidade_psicoativos", "porcentagem_psicoativos")
+names(uniao_genero) <- c("Genero", "Quant.total", "%.total", "Quant.psicoat", "%.psicoat", "obi.psic/1000.tot")
 
 #ESCOLARIDADE
 uniao_escolaridade <- merge(frequencias_escolaridade, frequenciasf_escolaridade, by = "ESC") #juntando os dados

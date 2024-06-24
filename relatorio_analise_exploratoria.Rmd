@@ -1,0 +1,73 @@
+---
+title: "Análise exploratória de mortes por psicoativos no ES"
+author: "Iane Martins"
+date: "20/06/2024"
+output: html_document
+---
+
+```{r, warning = FALSE, message=FALSE, echo=FALSE, include=FALSE}
+source("psic_1a_analise.R")
+library(gridExtra)
+```
+
+## Introdução
+  
+Este relatório busca examinar as variáveis sociodemográficas presentes na base de dados do Sistema de Informação sobre Mortalidade (SIM) em relação às mortes por psicoativos ocorridas no estado do Espírito Santo entre os anos de 2018 e 2022. Para obter os dados desse tipo específico de morte, foram usados os Códigos Diagnósticos (CID) de F10 até F19.
+
+As variáveis sociodemográficas selecionadas foram: **Idade**, **Gênero**, **Raça**, **Escolaridade** e **Estado Civil**. Aspectos como a quantidade de mortes por ano também foram incluídos no relatório para um melhor entendimento dos dados.
+  
+  
+### 1. Mortes por ano
+
+Para começar a análise, é importante ter uma ideia geral dos dados que estão sendo analisados. Nos gráficos a seguir, é possível observar o número de óbitos totais e o número de óbitos por psicoativos no estado do Espírito Santo entre os anos de 2018 e 2022. Nos óbitos totais estão incluídos todos os tipos de óbitos e, nos óbitos por psicoativos, estão incluídos todos aqueles cuja causa básica foi definida por um CID de F10 a F19.
+
+```{r fig.width=12, fig.height=6, echo=FALSE}
+grid.arrange(grafico_mortes_por_ano, graficof_mortes_por_ano, ncol=2)
+```
+
+É possível perceber que em ambos os gráficos o número de óbitos tem um aumento no ano de 2020, alcança seu ponto máximo no ano de 2021 e decresce no ano de 2022. Entretanto, ao observar a inclinação dessa curva de crescimento, percebemos que, em termos proporcionais, o número de mortes por psicoativos cresceu mais do que os óbitos totais. A tabela abaixo apresenta números mais precisos sobre essa relação. 
+
+```{r echo=FALSE}
+print(uniao_ano_obito)
+```
+
+Enquanto nos óbitos totais as mortes de 2021 representam aproximadamente 24,80% das mortes ocorridas entre 2018 e 2022, nos óbitos por psicoativos esse número sobe para aproximadamente 30,05% durante o mesmo período de tempo.
+
+Além disso, a tabela também mostra o número de óbitos por psicoativos a cada 1000 mortes totais. Em 2018, 2019 e 2020, a cada 1000 pessoas falecidas, de 6 a 8 faleceram por uso de psicoativos. Em 2021 e 2022, esse número aumentou para 11 pessoas a cada 1000.
+
+### 2. Gênero
+
+A primeira variável sociodemográfica analisada neste relatório é o gênero. Nos óbitos totais, os homens representam aproximadamente 56,42% das ocorrências, enquanto as mulheres compõem cerca de 43,50%. Já nas mortes por psicoativos, a proporção é de 85,74% para os homens contra 14,26% para as mulheres. A cada 1000 mulheres falecidas, aproximadamente 3 morrem por uso de psicoativos; em contraste, a cada 1000 homens mortos, aproximadamente 14 vão a óbito devido ao uso de psicoativos.
+
+```{r fig.width=12, fig.height=6, echo=FALSE}
+grid.arrange(grafico_genero, graficof_genero, ncol=2)
+```
+
+```{r echo=FALSE}
+print(uniao_genero)
+```
+
+
+### 3. Idade
+
+
+
+```{r fig.width=12, fig.height=6, echo=FALSE}
+grid.arrange(grafico_idade, graficof_idade, ncol=2)
+```
+
+
+
+### 4. Raça, Escolaridade e Estado Civil
+
+```{r fig.width=12, fig.height=6, echo=FALSE}
+grid.arrange(grafico_raca, graficof_raca, ncol=2)
+```
+
+```{r fig.width=12, fig.height=6, echo=FALSE}
+grid.arrange(grafico_escolaridade, graficof_escolaridade, ncol=2)
+```
+
+```{r fig.width=12, fig.height=6, echo=FALSE}
+grid.arrange(grafico_estado_civil, graficof_estado_civil, ncol=2)
+```
